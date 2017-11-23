@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SalesmenTableViewController: UITableViewController {
+class AllVisitsTableViewController: UITableViewController {
     
     let token = "6bac0f89326e4c92d000"
-    let targetURL = "https://dcrmt.herokuapp.com/api/salesmen?token="
+    let targetURL = "https://dcrmt.herokuapp.com/api/visits/flattened?token="
     var stringURL = ""
-    var salesmen: [Salesmen] = []
+    var visits: [Visits] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class SalesmenTableViewController: UITableViewController {
             return
         }
         
-        self.salesmen = salesmen
+        self.visits = salesmen
         
     }
 
@@ -41,20 +41,20 @@ class SalesmenTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return salesmen.count
+        return visits.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SalesmenCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VisitsCell", for: indexPath)
         
-        cell.textLabel?.text = salesmen[indexPath.row].fullname
-        cell.detailTextLabel?.text = String(salesmen[indexPath.row].id)
+        cell.textLabel?.text = visits[indexPath.row].Customer.name
+        cell.detailTextLabel?.text = visits[indexPath.row].Salesman.fullname
         cell.imageView?.image = UIImage(named: "head-512")
         
         return cell
     }
  
-    private func getDataFromJSON() -> [Salesmen]? {
+    private func getDataFromJSON() -> [Visits]? {
         guard let url = URL(string: stringURL)  else {
             print("Error en la URL")
             return nil
@@ -72,7 +72,7 @@ class SalesmenTableViewController: UITableViewController {
 
         let decoder = JSONDecoder()
     
-        guard let decodedSalesman = try? decoder.decode([Salesmen].self, from: data) else {
+        guard let decodedSalesman = try? decoder.decode([Visits].self, from: data) else {
             print("JSON no decodificado")
             return nil
         }
