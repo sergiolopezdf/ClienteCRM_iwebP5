@@ -50,3 +50,8 @@ struct Visits: Codable {
     let Customer: Customer
     let Salesman: Salesman
 }
+
+enum KindOfRequest {
+    case AllVisits, MyVisits, MyFavVisits
+    
+}

@@ -8,19 +8,24 @@
 
 import UIKit
 
-class AllVisitsTableViewController: UITableViewController {
+class VisitsTableViewController: UITableViewController {
     
-    let token = "6bac0f89326e4c92d000"
-    let targetURL = "https://dcrmt.herokuapp.com/api/visits/flattened?token="
+
     var stringURL = ""
+    var headerText = ""
     var visits: [Visits] = []
     var salesmanImg = [Int:UIImage]()
+    
+    @IBOutlet var navBar: UINavigationItem!
+    
+    //Necesitamos saber el tipo de petición. Por defecto, muestra todas las visitas
+    var kindOfRequest: KindOfRequest = .AllVisits
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navBar.title = headerText
         
-        stringURL = "\(targetURL)\(token)"
         getDataFromJSON()
         tableView.reloadData()
         
@@ -47,7 +52,12 @@ class AllVisitsTableViewController: UITableViewController {
         
         //Actualizamos el texto de las celdas
         cell.textLabel?.text = visits[indexPath.row].Customer.name
-        cell.detailTextLabel?.text = visits[indexPath.row].Salesman.fullname
+        
+        if kindOfRequest == .AllVisits {
+            cell.detailTextLabel?.text = visits[indexPath.row].Salesman.fullname
+        } else {
+            cell.detailTextLabel?.text = visits[indexPath.row].plannedFor
+        }
         
         //Id del vendedor
         let salesmanId = visits[indexPath.row].Salesman.id
