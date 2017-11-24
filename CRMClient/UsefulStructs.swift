@@ -55,3 +55,4 @@ enum KindOfRequest {
     case AllVisits, MyVisits, MyFavVisits
     
 }
+

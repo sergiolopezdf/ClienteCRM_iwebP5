@@ -10,7 +10,6 @@ import UIKit
 
 class VisitsTableViewController: UITableViewController {
     
-
     var stringURL = ""
     var headerText = ""
     var visits: [Visits] = []

@@ -9,15 +9,18 @@
 import UIKit
 
 class MainTableViewController: UITableViewController {
-
+    
+    var beginDate: Date = Date()
+    var endDate: Date = Date()
+    var existsBeginDate = false
+    var existsEndDate = false
+    
+    private let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        checkUserDefaults()
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,6 +74,20 @@ class MainTableViewController: UITableViewController {
         return cell
     }
 
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "goToVisitsTVC" {
+            if existsEndDate && existsBeginDate {
+                return true
+            } else {
+                let alert = UIAlertController(title: "Oops...", message: "No has establecido las fechas. Tienes que seleccionarlas primero.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Entendido", style: .default))
+                present(alert,animated: true)
+                return false
+            }
+        }
+        return true
+    }
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -114,6 +131,22 @@ class MainTableViewController: UITableViewController {
             
         }
         
+    }
+    
+    @IBAction func goBackMain (_ segue: UIStoryboardSegue) {
+        checkUserDefaults()
+    }
+    
+    private func checkUserDefaults () {
+        if let bDate = defaults.object(forKey: "beginDate") as? Date {
+            beginDate = bDate
+            existsBeginDate = true
+        }
+        
+        if let eDate = defaults.object(forKey: "endDate") as? Date {
+            endDate = eDate
+            existsEndDate = true
+        }
     }
     
 
