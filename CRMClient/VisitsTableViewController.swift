@@ -55,8 +55,10 @@ class VisitsTableViewController: UITableViewController {
         if kindOfRequest == .AllVisits {
             cell.detailTextLabel?.text = visits[indexPath.row].Salesman.fullname
         } else {
-            cell.detailTextLabel?.text = visits[indexPath.row].plannedFor
+            let plannedFor = dateFormatter(visits[indexPath.row].plannedFor)
+            cell.detailTextLabel?.text = plannedFor
         }
+        cell.detailTextLabel?.textColor = UIColor.blue
         
         //Id del vendedor
         let salesmanId = visits[indexPath.row].Salesman.id
@@ -77,10 +79,17 @@ class VisitsTableViewController: UITableViewController {
         
         //Asignas la foto del array a la celda
         cell.imageView?.image = img
+        cell.imageView?.clipsToBounds = true
         
+        cell.imageView?.isHighlighted = false
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Entre las fechas de inicio y final"
+    }
+    
     
     //Usamos GCD para emplear otro Thread y Data para descargar el JSON
     private func getDataFromJSON() {
@@ -97,13 +106,17 @@ class VisitsTableViewController: UITableViewController {
         queue.async {
             //Creamos la URL
             guard let url = URL(string: self.stringURL) else {
-                print("Error en la URL")
+                let alert = UIAlertController(title: "Error en la petición", message: "No se pudieron descargar los datos. Vuelve a intentarlo", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Entendido", style: .default))
+                self.present(alert,animated: true)
                 return
             }
             
             //Usamos Data para la descarga
             guard let data = try? Data(contentsOf: url) else {
-                print("Error en la descarga del JSON")
+                let alert = UIAlertController(title: "Error de conexión", message: "No se pudieron descargar los datos. Vuelve a intentarlo", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Entendido", style: .default))
+                self.present(alert,animated: true)
                 return
             }
             
@@ -121,7 +134,6 @@ class VisitsTableViewController: UITableViewController {
             
             //Añadimos al array
             DispatchQueue.main.async {
-                print("Vuelta main")
                 self.visits = decodedVisits
                 self.tableView.reloadData()
             }
@@ -155,6 +167,15 @@ class VisitsTableViewController: UITableViewController {
             }
             
         }
+        
+    }
+    
+    private func dateFormatter(_ date: String) -> String {
+        let df = ISO8601DateFormatter()
+        df.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+        
+        let d = df.date(from: date)
+        return ISO8601DateFormatter.string(from: d!, timeZone: .current, formatOptions: [.withFullDate])
         
     }
     

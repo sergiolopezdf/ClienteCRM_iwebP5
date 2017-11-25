@@ -11,8 +11,10 @@
 		495EEE201FC49CD8001469DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495EEE1E1FC49CD8001469DF /* Main.storyboard */; };
 		495EEE221FC49CD8001469DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 495EEE211FC49CD8001469DF /* Assets.xcassets */; };
 		495EEE251FC49CD8001469DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495EEE231FC49CD8001469DF /* LaunchScreen.storyboard */; };
-		495EEE2D1FC49D44001469DF /* SalesmenTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495EEE2C1FC49D44001469DF /* SalesmenTableViewController.swift */; };
-		49E1ED041FC4A31300863D4D /* StructsForJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E1ED031FC4A31300863D4D /* StructsForJSON.swift */; };
+		495EEE2D1FC49D44001469DF /* VisitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495EEE2C1FC49D44001469DF /* VisitsTableViewController.swift */; };
+		49E1ED041FC4A31300863D4D /* UsefulStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E1ED031FC4A31300863D4D /* UsefulStructs.swift */; };
+		49E1ED081FC731E000863D4D /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E1ED071FC731E000863D4D /* MainTableViewController.swift */; };
+		49E1ED101FC8402B00863D4D /* DateSelectorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E1ED0F1FC8402B00863D4D /* DateSelectorsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +24,10 @@
 		495EEE211FC49CD8001469DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		495EEE241FC49CD8001469DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		495EEE261FC49CD8001469DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		495EEE2C1FC49D44001469DF /* SalesmenTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesmenTableViewController.swift; sourceTree = "<group>"; };
-		49E1ED031FC4A31300863D4D /* StructsForJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructsForJSON.swift; sourceTree = "<group>"; };
+		495EEE2C1FC49D44001469DF /* VisitsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitsTableViewController.swift; sourceTree = "<group>"; };
+		49E1ED031FC4A31300863D4D /* UsefulStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulStructs.swift; sourceTree = "<group>"; };
+		49E1ED071FC731E000863D4D /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		49E1ED0F1FC8402B00863D4D /* DateSelectorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +60,12 @@
 		495EEE191FC49CD8001469DF /* CRMClient */ = {
 			isa = PBXGroup;
 			children = (
-				495EEE2C1FC49D44001469DF /* SalesmenTableViewController.swift */,
-				49E1ED031FC4A31300863D4D /* StructsForJSON.swift */,
+				49E1ED071FC731E000863D4D /* MainTableViewController.swift */,
+				495EEE2C1FC49D44001469DF /* VisitsTableViewController.swift */,
+				49E1ED031FC4A31300863D4D /* UsefulStructs.swift */,
 				495EEE1A1FC49CD8001469DF /* AppDelegate.swift */,
 				495EEE1E1FC49CD8001469DF /* Main.storyboard */,
+				49E1ED0F1FC8402B00863D4D /* DateSelectorsViewController.swift */,
 				495EEE211FC49CD8001469DF /* Assets.xcassets */,
 				495EEE231FC49CD8001469DF /* LaunchScreen.storyboard */,
 				495EEE261FC49CD8001469DF /* Info.plist */,
@@ -139,9 +145,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E1ED081FC731E000863D4D /* MainTableViewController.swift in Sources */,
 				495EEE1B1FC49CD8001469DF /* AppDelegate.swift in Sources */,
-				49E1ED041FC4A31300863D4D /* StructsForJSON.swift in Sources */,
-				495EEE2D1FC49D44001469DF /* SalesmenTableViewController.swift in Sources */,
+				49E1ED101FC8402B00863D4D /* DateSelectorsViewController.swift in Sources */,
+				49E1ED041FC4A31300863D4D /* UsefulStructs.swift in Sources */,
+				495EEE2D1FC49D44001469DF /* VisitsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

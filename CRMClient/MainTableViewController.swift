@@ -36,7 +36,6 @@ class MainTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if section == 0 {
             return 1
         } else if section == 1 {
@@ -74,6 +73,11 @@ class MainTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(90)
+    }
+    
+    
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "goToVisitsTVC" {
@@ -88,6 +92,9 @@ class MainTableViewController: UITableViewController {
         }
         return true
     }
+    
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -95,6 +102,10 @@ class MainTableViewController: UITableViewController {
         let allVisitsURL = "https://dcrmt.herokuapp.com/api/visits/flattened?token="
         let myVisitsURL = "https://dcrmt.herokuapp.com/api/users/tokenOwner/visits/flattened?token="
         let myFavVisitsURL = "&favourites=1"
+        
+        let beginParsedDate = dateFormatter(beginDate)
+        let endParsedDate = dateFormatter(endDate)
+        
         
         
         let indexPath = tableView.indexPathForSelectedRow
@@ -106,22 +117,28 @@ class MainTableViewController: UITableViewController {
                 return
             }
             
+            //Sección Todas las visitas
             if indexPath?.section == 0 {
-                vtvc.stringURL = "\(allVisitsURL)\(token)"
+                vtvc.stringURL = "\(allVisitsURL)\(token)&dateafter=\(beginParsedDate)&datebefore=\(endParsedDate)"
                 vtvc.headerText = "Todas las visitas"
                 vtvc.kindOfRequest = .AllVisits
                 return
             }
             
+            //Sección del usuario
             if indexPath?.section == 1 {
+                
+                //Sección de visitas del usuario
                 if indexPath?.row == 0 {
-                    vtvc.stringURL = "\(myVisitsURL)\(token)"
+                    vtvc.stringURL = "\(myVisitsURL)\(token)&dateafter=\(beginParsedDate)&datebefore=\(endParsedDate)"
                     vtvc.headerText = "Mis visitas"
                     vtvc.kindOfRequest = .MyVisits
                     return
                 }
+                
+                //Sección de visitas favoritas
                 if indexPath?.row == 1 {
-                    vtvc.stringURL = "\(myVisitsURL)\(token)\(myFavVisitsURL)"
+                    vtvc.stringURL = "\(myVisitsURL)\(token)\(myFavVisitsURL)&dateafter=\(beginParsedDate)&datebefore=\(endParsedDate)"
                     vtvc.headerText = "Mis visitas favoritas"
                     vtvc.kindOfRequest = .MyFavVisits
                     return
@@ -137,6 +154,7 @@ class MainTableViewController: UITableViewController {
         checkUserDefaults()
     }
     
+    //Comprueba si ya hay preferencias de usuario guardadas
     private func checkUserDefaults () {
         if let bDate = defaults.object(forKey: "beginDate") as? Date {
             beginDate = bDate
@@ -147,6 +165,16 @@ class MainTableViewController: UITableViewController {
             endDate = eDate
             existsEndDate = true
         }
+    }
+    
+    private func dateFormatter(_ date: Date) -> String {
+        let df = ISO8601DateFormatter()
+        df.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+        
+        let s = df.string(from: date)
+        let d = df.date(from: s)
+        return ISO8601DateFormatter.string(from: d!, timeZone: .current, formatOptions: [.withFullDate])
+        
     }
     
 
