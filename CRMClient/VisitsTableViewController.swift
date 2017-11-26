@@ -47,25 +47,25 @@ class VisitsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VisitsCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VisitsCell", for: indexPath) as! VisitsTableViewCell
         
         //Actualizamos el texto de las celdas
-        cell.textLabel?.text = visits[indexPath.row].Customer.name
+        cell.name.text = visits[indexPath.row].Customer.name
         
         if kindOfRequest == .AllVisits {
-            cell.detailTextLabel?.text = visits[indexPath.row].Salesman.fullname
+            cell.subText.text = visits[indexPath.row].Salesman.fullname
         } else {
             let plannedFor = dateFormatter(visits[indexPath.row].plannedFor)
-            cell.detailTextLabel?.text = plannedFor
+            cell.subText.text = plannedFor
         }
-        cell.detailTextLabel?.textColor = UIColor.blue
+        cell.subText.textColor = UIColor.blue
         
         //Id del vendedor
         let salesmanId = visits[indexPath.row].Salesman.id
         
         //Si no hay URL de la foto, asignamos foto por defecto en el array
         guard let salesmanUrlStg = visits[indexPath.row].Salesman.Photo?.url else {
-            cell.imageView?.image = UIImage(named: "head-512")
+            cell.img.image = UIImage(named: "head-512")
             return cell
         }
         
@@ -78,10 +78,8 @@ class VisitsTableViewController: UITableViewController {
         //Siempre se cumple porque en la función getSalesmanImg haces reload de la celda
         
         //Asignas la foto del array a la celda
-        cell.imageView?.image = img
-        cell.imageView?.clipsToBounds = true
+        cell.img.image = img
         
-        cell.imageView?.isHighlighted = false
         
         return cell
     }
