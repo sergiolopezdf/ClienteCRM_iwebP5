@@ -95,26 +95,28 @@ class VisitsTableViewController: UITableViewController {
     private func getDataFromJSON() {
         
         //Creamos cola global
-        let queue = DispatchQueue.global()
+        let session = URLSession.shared
         
-        //Activamos el indicador de red
+        guard let url = URL(string: stringURL) else {
+            print ("Error URL")
+            return
+        }
+        
+        //Siempre en MainThread
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         defer {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         
-        queue.async {
-            //Creamos la URL
-            guard let url = URL(string: self.stringURL) else {
-                let alert = UIAlertController(title: "Error en la petición", message: "No se pudieron descargar los datos. Vuelve a intentarlo", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Entendido", style: .default))
-                self.present(alert,animated: true)
-                return
+    
+        let task = session.dataTask(with: url) {(data, response, error) in
+            
+            if error != nil {
+                print(error!.localizedDescription)
             }
             
-            //Usamos Data para la descarga
-            guard let data = try? Data(contentsOf: url) else {
-                let alert = UIAlertController(title: "Error de conexión", message: "No se pudieron descargar los datos. Vuelve a intentarlo", preferredStyle: .alert)
+            if (response as! HTTPURLResponse).statusCode != 200 {
+                let alert = UIAlertController(title: "Error en la petición", message: "No se pudieron descargar los datos. Vuelve a intentarlo", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Entendido", style: .default))
                 self.present(alert,animated: true)
                 return
@@ -124,7 +126,7 @@ class VisitsTableViewController: UITableViewController {
             let decoder = JSONDecoder()
             
             //Decodificamos de JSON
-            guard let decodedVisits = try? decoder.decode([Visits].self, from: data) else {
+            guard let decodedVisits = try? decoder.decode([Visits].self, from: data!) else {
                 print("JSON no decodificado")
                 return
             }
@@ -137,9 +139,10 @@ class VisitsTableViewController: UITableViewController {
                 self.visits = decodedVisits
                 self.tableView.reloadData()
             }
-            
+ 
         }
-        
+        task.resume()
+
     }
     
     private func getSalesmanImg(id: Int, URLString stgUrl: String, for indexPath: IndexPath) {

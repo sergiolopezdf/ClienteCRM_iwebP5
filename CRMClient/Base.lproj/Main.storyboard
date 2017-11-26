@@ -140,7 +140,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="redraw" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RequestCell" textLabel="6hf-V8-4tX" rowHeight="100" style="IBUITableViewCellStyleDefault" id="0aC-fR-eaX">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="55" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0aC-fR-eaX" id="jm0-RJ-0jb">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="99.666666666666671"/>
@@ -160,6 +160,7 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="Brf-OE-03E" id="261-yR-0EN"/>
                             <outlet property="delegate" destination="Brf-OE-03E" id="Kgu-h7-jnU"/>
