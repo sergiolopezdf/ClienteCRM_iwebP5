@@ -93,7 +93,7 @@ class VisitsTableViewController: UITableViewController {
     private func getDataFromJSON() {
         
         //Creamos cola global
-        let session = URLSession.shared
+        let session = URLSession(configuration: URLSessionConfiguration.default)
         
         guard let url = URL(string: stringURL) else {
             print ("Error URL")
@@ -107,7 +107,7 @@ class VisitsTableViewController: UITableViewController {
         }
         
     
-        let task = session.dataTask(with: url) {(data, response, error) in
+        let task = session.downloadTask(with: url)  {(location, response, error) in
             
             if error != nil {
                 print(error!.localizedDescription)
@@ -122,6 +122,9 @@ class VisitsTableViewController: UITableViewController {
             
             //Creamos el decodificador de JSON
             let decoder = JSONDecoder()
+            
+        
+            let data = try? Data(contentsOf: location!)
             
             //Decodificamos de JSON
             guard let decodedVisits = try? decoder.decode([Visits].self, from: data!) else {
