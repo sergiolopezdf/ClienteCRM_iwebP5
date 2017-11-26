@@ -90,8 +90,6 @@ class VisitsTableViewController: UITableViewController {
         return "Entre las fechas de inicio y final"
     }
     
-    
-    //Usamos GCD para emplear otro Thread y Data para descargar el JSON
     private func getDataFromJSON() {
         
         //Creamos cola global
