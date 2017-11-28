@@ -54,11 +54,32 @@ class VisitsTableViewController: UITableViewController {
         
         if kindOfRequest == .AllVisits {
             cell.subText.text = visits[indexPath.row].Salesman.fullname
+            
+            let customerCIF = visits[indexPath.row].Customer.cif
+            cell.infoExtra1.text = "CIF: \(customerCIF)"
+            
+            let customerAddress =  visits[indexPath.row].Customer.address1
+            cell.infoExtra2.text = "Dir: \(customerAddress)"
+            
+            
+            cell.id.text = String(visits[indexPath.row].Salesman.login)
+            
         } else {
             let plannedFor = dateFormatter(visits[indexPath.row].plannedFor)
             cell.subText.text = plannedFor
+            
+            let customerEmail = visits[indexPath.row].Customer.email1
+            cell.infoExtra1.text = "Cliente(@): \(customerEmail)"
+           
+            let customerPhone =  visits[indexPath.row].Customer.phone1
+            cell.infoExtra2.text = "Vendedor(Tlfn): \(customerPhone)"
+
+            cell.id.text = String(visits[indexPath.row].Salesman.login)
+            
+            
+            
         }
-        cell.subText.textColor = UIColor.blue
+        cell.subText.textColor = UIColor.red
         
         //Id del vendedor
         let salesmanId = visits[indexPath.row].Salesman.id

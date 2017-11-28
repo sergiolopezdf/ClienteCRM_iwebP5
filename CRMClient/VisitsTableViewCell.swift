@@ -13,6 +13,9 @@ class VisitsTableViewCell: UITableViewCell {
     @IBOutlet var name: UILabel!
     @IBOutlet var subText: UILabel!
     @IBOutlet var img: UIImageView!
+    @IBOutlet var infoExtra1: UILabel!
+    @IBOutlet var infoExtra2: UILabel!
+    @IBOutlet var id: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
