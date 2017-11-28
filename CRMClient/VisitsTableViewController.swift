@@ -69,10 +69,10 @@ class VisitsTableViewController: UITableViewController {
             cell.subText.text = plannedFor
             
             let customerEmail = visits[indexPath.row].Customer.email1
-            cell.infoExtra1.text = "Cliente(@): \(customerEmail)"
+            cell.infoExtra1.text = customerEmail
            
             let customerPhone =  visits[indexPath.row].Customer.phone1
-            cell.infoExtra2.text = "Vendedor(Tlfn): \(customerPhone)"
+            cell.infoExtra2.text = customerPhone
 
             cell.id.text = String(visits[indexPath.row].Salesman.login)
             
